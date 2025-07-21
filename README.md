@@ -127,6 +127,51 @@ ethernet_frame_gen #(
 - **Latency**: Configurable based on buffering strategy
 - **Resource Usage**: Optimized for minimal LUT and BRAM usage
 
+## Running Simulations
+
+### Windows (Vivado)
+```cmd
+# Quick start
+cd scripts
+vivado -mode tcl -source run_sim_vivado.tcl
+
+# Or use batch script
+run_simulation.bat all
+```
+
+### Linux (Vivado)
+```bash
+# First-time setup
+chmod +x scripts/setup_linux.sh
+./scripts/setup_linux.sh
+
+# Source Vivado (adjust path for your installation)
+source /opt/Xilinx/Vivado/2023.2/settings64.sh
+
+# Run simulation
+chmod +x scripts/run_simulation.sh
+./scripts/run_simulation.sh
+
+# Available options:
+./scripts/run_simulation.sh ethernet_gen  # Ethernet test only
+./scripts/run_simulation.sh crc32        # CRC32 test only  
+./scripts/run_simulation.sh gui          # GUI with waveforms
+./scripts/run_simulation.sh all          # All tests (default)
+
+# Direct TCL execution
+vivado -mode tcl -source scripts/run_sim_linux.tcl
+```
+
+### Expected Output
+```
+=== Ethernet Frame Generator Simulation ===
+Project root: /path/to/Ethernet-Frame-Generator
+[SUCCESS] Found Vivado: /opt/Xilinx/Vivado/2023.2/bin/vivado
+[SUCCESS] RTL compilation completed
+[SUCCESS] Ethernet Frame Generator test completed
+[SUCCESS] All tests completed successfully!
+```
+
 ## Testing
 
 The project includes comprehensive testbenches that verify:
