@@ -146,7 +146,7 @@ reg reading_packet;
 reg [ADDR_WIDTH:0] current_packet_start;
 reg [ADDR_WIDTH:0] next_packet_start;
 
-always_ff @(posedge clk or negedge rst_n) begin
+always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
         rd_ptr <= {(ADDR_WIDTH+1){1'b0}};
         packet_rd_ptr <= 8'h0;
@@ -208,7 +208,7 @@ always_ff @(posedge clk or negedge rst_n) begin
 end
 
 // Packet count calculation
-always_ff @(posedge clk or negedge rst_n) begin
+always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
         packet_count <= 8'h0;
     end else begin
@@ -261,7 +261,8 @@ module packet_buffer_dual_clock #(
 );
 
 // Gray code counters for clock domain crossing
-reg [ADDR_WIDTH:0] wr_gray, wr_gray_next;
+reg [ADDR_WIDTH:0] wr_gray;
+wire [ADDR_WIDTH:0] wr_gray_next;
 reg [ADDR_WIDTH:0] rd_gray, rd_gray_next;
 
 // Synchronized gray code pointers
@@ -294,7 +295,7 @@ function [ADDR_WIDTH:0] gray_to_bin;
 endfunction
 
 // Write side logic
-always_ff @(posedge wr_clk or negedge wr_rst_n) begin
+always @(posedge wr_clk or negedge wr_rst_n) begin
     if (!wr_rst_n) begin
         wr_bin <= {(ADDR_WIDTH+1){1'b0}};
         wr_gray <= {(ADDR_WIDTH+1){1'b0}};
@@ -306,7 +307,7 @@ always_ff @(posedge wr_clk or negedge wr_rst_n) begin
 end
 
 // Read side logic
-always_ff @(posedge rd_clk or negedge rd_rst_n) begin
+always @(posedge rd_clk or negedge rd_rst_n) begin
     if (!rd_rst_n) begin
         rd_bin <= {(ADDR_WIDTH+1){1'b0}};
         rd_gray <= {(ADDR_WIDTH+1){1'b0}};
@@ -323,7 +324,7 @@ always_ff @(posedge rd_clk or negedge rd_rst_n) begin
 end
 
 // Synchronize gray pointers across clock domains
-always_ff @(posedge wr_clk or negedge wr_rst_n) begin
+always @(posedge wr_clk or negedge wr_rst_n) begin
     if (!wr_rst_n) begin
         rd_gray_sync[0] <= {(ADDR_WIDTH+1){1'b0}};
         rd_gray_sync[1] <= {(ADDR_WIDTH+1){1'b0}};
@@ -333,7 +334,7 @@ always_ff @(posedge wr_clk or negedge wr_rst_n) begin
     end
 end
 
-always_ff @(posedge rd_clk or negedge rd_rst_n) begin
+always @(posedge rd_clk or negedge rd_rst_n) begin
     if (!rd_rst_n) begin
         wr_gray_sync[0] <= {(ADDR_WIDTH+1){1'b0}};
         wr_gray_sync[1] <= {(ADDR_WIDTH+1){1'b0}};
@@ -344,7 +345,7 @@ always_ff @(posedge rd_clk or negedge rd_rst_n) begin
 end
 
 // Generate status flags
-always_comb begin
+always @(*) begin
     buffer_full = (wr_gray_next == rd_gray_sync[1]);
     buffer_empty = (rd_gray == wr_gray_sync[1]);
     wr_ready = !buffer_full;
