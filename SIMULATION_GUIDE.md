@@ -162,6 +162,18 @@ Your Ethernet Frame Generator is ready to simulate on both Windows and Linux! �
 ## Recent Fixes Applied ✅
 
 - **Fixed SystemVerilog syntax** in `crc32_gen.v` for Linux compatibility
+- **Fixed SystemVerilog syntax** in `packet_buffer.v` - converted `always_ff` → `always`, `always_comb` → `always @(*)`
 - **Added comprehensive Linux scripts** with error handling
 - **Created cross-platform simulation guide**
 - **Added proper `.gitignore`** for FPGA projects
+- **Added quick compilation test**: `scripts/test_compile.sh`
+
+## Quick Compilation Test (Linux)
+
+Before running full simulation, you can test compilation:
+```bash
+chmod +x scripts/test_compile.sh
+./scripts/test_compile.sh
+```
+
+This will quickly verify all RTL files compile correctly.
