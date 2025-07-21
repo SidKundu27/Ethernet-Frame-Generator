@@ -1,0 +1,269 @@
+# Ethernet Frame Generator - Git Ignore File
+
+# Vivado simulation and synthesis outputs
+*.jou
+*.log
+*.str
+*.xpr
+*.cache/
+*.hw/
+*.ip_user_files/
+*.runs/
+*.sim/
+*.srcs/
+*.gen/
+*_wrapper.v
+*_wrapper.vhd
+
+# Simulation directories
+sim_*/
+sim_quick/
+sim_vivado/
+sim_linux/
+sim_results/
+work/
+transcript
+
+# Vivado project files
+*.xise
+*.gise
+*.ise
+*.wcfg
+*.wdb
+*.vcd
+*.fsdb
+*.vpd
+*.trn
+*.dsn
+*.ghw
+
+# Synthesis outputs
+*.bit
+*.bin
+*.mcs
+*.prm
+*.ltx
+*.debug
+*.rpt
+netlist.v
+*.dcp
+
+# Implementation reports
+*_timing_summary_routed.rpt
+*_utilization_placed.rpt
+*_utilization_synth.rpt
+*_power_routed.rpt
+*_route_status.rpt
+*_summary.rpt
+
+# Temporary files
+.Xil/
+*.tmp
+*.temp
+*.backup
+*~
+*.swp
+*.swo
+.#*
+
+# OS specific files
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux
+*~
+.nfs*
+
+# IDE and editor files
+# VSCode
+.vscode/
+*.code-workspace
+
+# Vim
+*.vim
+.netrwhist
+
+# Emacs
+\#*\#
+.\#*
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Eclipse
+.metadata
+.recommenders/
+*.pydevproject
+.project
+.cproject
+
+# Tool-specific files
+# ModelSim/QuestaSim
+*.mpf
+*.mti
+modelsim.ini
+work/
+transcript
+wlf*
+*.wlf
+
+# Xilinx ISE
+*.bgn
+*.bit
+*.bld
+*.cmd_log
+*.drc
+*.elf
+*.fitter
+*.map
+*.mrp
+*.ncd
+*.ngc
+*.ngd
+*.ngr
+*.pad
+*.par
+*.pcf
+*.prj
+*.ptwx
+*.rbb
+*.rbd
+*.stx
+*.syr
+*.twr
+*.twx
+*.unroutes
+*.ut
+*.xpi
+*.xst
+*_bitgen.xwbt
+*_impact.xsl
+*_map.map
+*_map.mrp
+*_map.ncd
+*_map.ngm
+*_ngdbuild.xrpt
+*_pad.csv
+*_pad.txt
+*_par.xrpt
+*_summary.html
+*_summary.xml
+*_usage.xml
+*_xst.xrpt
+
+# Quartus II
+*.qpf
+*.qsf
+*.qws
+*.rpt
+*.smsg
+*.summary
+db/
+incremental_db/
+output_files/
+
+# Cadence
+*.log
+*.err
+*.out
+*.run
+cds.lib
+hdl.var
+
+# Synopsys
+*.svf
+*.mr
+*.pvl
+*.syn
+command.log
+default.svf
+
+# FPGA vendor specific
+# Altera/Intel
+*.qar
+*.qarlog
+*.sopc_builder
+
+# Lattice
+*.ldf
+*.prj
+*.lpf
+*.srp
+*.arearep
+*.par
+*.pad
+*.prf
+
+# Microsemi/Microchip
+*.prjx
+*.pdb
+*.stp
+
+# Archives and packages
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Documentation builds
+docs/_build/
+*.pdf
+*.aux
+*.fdb_latexmk
+*.fls
+*.out
+*.toc
+
+# Python (if any verification scripts)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Local configuration files
+config.local
+settings.local
+*.local
+
+# Backup files
+*.bak
+*.orig
+*.rej
+
+# Simulation waveform files
+*.vcd
+*.fst
+*.ghw
+*.fdb
+*.wdb
+*.shm
+*.trn
+*.dsn

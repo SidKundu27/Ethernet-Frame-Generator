@@ -93,10 +93,12 @@ module crc32_gen_table (
 // This table is pre-computed for the IEEE 802.3 polynomial
 reg [31:0] crc_table [0:255];
 
+// Variables for CRC table initialization
+integer i, j;
+reg [31:0] crc_temp;
+
 // Initialize the CRC table
 initial begin
-    integer i, j;
-    reg [31:0] crc_temp;
     
     for (i = 0; i < 256; i = i + 1) begin
         crc_temp = i;
