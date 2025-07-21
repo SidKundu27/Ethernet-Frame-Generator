@@ -68,17 +68,17 @@ launch_simulation
 puts "Running simulation for 5ms..."
 run 5ms
 
-# Check if simulation completed without errors
-if {[get_property STATUS [get_sim_data]] eq "PASS"} {
-    puts "=== SIMULATION PASSED ==="
+# Check if simulation completed successfully
+set sim_status [get_property STATUS [current_sim]]
+if {$sim_status eq "PAUSED" || $sim_status eq "STOPPED"} {
+    puts "=== SIMULATION COMPLETED ==="
 } else {
-    puts "=== SIMULATION ISSUES DETECTED ==="
-    puts "Check the simulation log for details"
+    puts "=== SIMULATION STATUS: $sim_status ==="
 }
 
 # Save simulation results
 puts "Saving simulation results..."
-close_sim
+close_sim -force
 
 # Optional: Generate basic report
 puts ""

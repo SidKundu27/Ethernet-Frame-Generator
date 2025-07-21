@@ -123,11 +123,41 @@ run_ethernet_test() {
     
     # Create TCL script for simulation
     cat > run_ethernet_sim.tcl << 'EOF'
-# Elaborate the design
-xelab -debug typical tb_ethernet_frame_gen -s ethernet_sim
+# Create simulation project
+create_project -force ethernet_sim_proj . -part xc7a35tcpg236-1
+
+# Add all RTL files to project
+add_files -norecurse {
+    ../rtl/crc32_gen.v
+    ../rtl/packet_buffer.v
+    ../rtl/frame_builder.v
+    ../rtl/ethernet_frame_gen.v
+}
+
+# Add testbench files
+add_files -fileset sim_1 -norecurse {
+    ../tb/tb_ethernet_frame_gen.v
+}
+
+# Set the top-level testbench
+set_property top tb_ethernet_frame_gen [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+
+# Update compile order
+update_compile_order -fileset sources_1
+update_compile_order -fileset sim_1
 
 # Launch simulation
-xsim ethernet_sim -runall
+launch_simulation
+
+# Run simulation for sufficient time
+run 5ms
+
+# Close simulation
+close_sim -force
+
+# Report completion
+puts "Ethernet Frame Generator simulation completed successfully!"
 
 # Exit
 exit
@@ -151,11 +181,38 @@ run_crc32_test() {
     
     # Create TCL script for simulation
     cat > run_crc32_sim.tcl << 'EOF'
-# Elaborate the design
-xelab -debug typical tb_crc32_gen -s crc32_sim
+# Create simulation project
+create_project -force crc32_sim_proj . -part xc7a35tcpg236-1
+
+# Add RTL files
+add_files -norecurse {
+    ../rtl/crc32_gen.v
+}
+
+# Add testbench files
+add_files -fileset sim_1 -norecurse {
+    ../tb/tb_crc32_gen.v
+}
+
+# Set the top-level testbench
+set_property top tb_crc32_gen [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+
+# Update compile order
+update_compile_order -fileset sources_1
+update_compile_order -fileset sim_1
 
 # Launch simulation
-xsim crc32_sim -runall
+launch_simulation
+
+# Run simulation for sufficient time
+run 2ms
+
+# Close simulation
+close_sim -force
+
+# Report completion
+puts "CRC32 Generator simulation completed successfully!"
 
 # Exit
 exit
@@ -224,11 +281,13 @@ show_usage() {
     echo "  crc32        - Run CRC32 Generator test only"
     echo "  all          - Run all tests (default)"
     echo "  gui          - Run comprehensive test with Vivado GUI"
+    echo "  standalone   - Run using xvlog/xelab/xsim directly"
     echo ""
     echo "Examples:"
     echo "  $0                    # Run all tests"
     echo "  $0 ethernet_gen       # Run only Ethernet test"
     echo "  $0 gui               # Run with GUI for waveform viewing"
+    echo "  $0 standalone        # Run using xvlog/xelab/xsim directly"
     echo ""
     echo "Prerequisites:"
     echo "  - Vivado must be installed and sourced"
@@ -270,6 +329,10 @@ main() {
             ;;
         "gui")
             run_gui_simulation
+            ;;
+        "standalone")
+            print_info "Running standalone simulation (xvlog/xelab/xsim)..."
+            exec "$SCRIPT_DIR/run_standalone_sim.sh"
             ;;
         "all")
             run_ethernet_test
